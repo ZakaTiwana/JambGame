@@ -254,8 +254,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:drawableLeft="@drawable/d1"
-                android:text="1" />
+                android:drawableLeft="@drawable/r_d1"
+                />
 
             <TextView
                 android:id="@+id/textView14"
