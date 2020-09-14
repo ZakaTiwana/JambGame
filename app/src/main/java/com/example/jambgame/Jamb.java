@@ -29,7 +29,7 @@ public class Jamb {
 
 
     public ArrayList<Column> getColumns(){
-        return this.getColumns();
+        return this.columns;
     }
 
     public ArrayList<Dices> getDices(){
