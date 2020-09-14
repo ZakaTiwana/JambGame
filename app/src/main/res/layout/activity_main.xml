@@ -228,7 +228,7 @@
                     android:padding="5dp"
                     android:textAlignment="center"
                     android:gravity="center_horizontal"
-                    android:text="Max" />
+                    android:text="Min" />
             </TableRow>
 
             <TableRow
@@ -246,7 +246,7 @@
                     android:padding="5dp"
                     android:textAlignment="center"
                     android:gravity="center_horizontal"
-                    android:text="Min" />
+                    android:text="Max" />
             </TableRow>
             <TableRow
                 android:id="@+id/s_row"

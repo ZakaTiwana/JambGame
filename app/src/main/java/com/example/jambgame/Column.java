@@ -5,7 +5,7 @@ import java.util.HashMap;
 public class Column {
 
     String type;
-    HashMap<String,Integer> columns;
+    HashMap<String,Integer> columns = new HashMap<>();
     int index;
 
     public Column(String type) {

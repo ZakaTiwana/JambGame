@@ -5,8 +5,8 @@ import java.util.HashMap;
 
 public class Jamb {
     int rollCount;
-    ArrayList<Dices> dices;
-    ArrayList<Column> columns;
+    ArrayList<Dices> dices = new ArrayList<>();
+    ArrayList<Column> columns= new ArrayList<>();
 
     public Jamb() {
         this.rollCount=0;
