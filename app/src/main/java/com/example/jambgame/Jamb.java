@@ -195,6 +195,12 @@ public class Jamb {
         return total;
     }
 
+    public void resetDices(){
+        this.dices=new ArrayList<Dices>();
+    }
+
+
+
     public boolean saveToDB(){
         return true;
     }
