@@ -22,12 +22,11 @@ public class Column {
     }
 
     public void setValue(String key){
-        //Main Login
+        //Main Logic
     }
 
     public String getType(){
         return this.type;
     }
-
 
 }
