@@ -9,7 +9,6 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
@@ -80,11 +79,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        Log.d(TAG, "onClick: view = " +view.getId() + " ,  cells[2+3]"+cells[2][3].getId());
-        for(int i=0; i < tableRows.length ; i++){
-            for (int j=0; j < 4; j++){
-                if(view.getId() == cells[i][j].getId()){
-                    cells[i][j].setText("0");
+        Log.d(TAG, "onClick: view id = "+view.getId());
+        if (btn_go.getId() == view.getId()){
+
+        }else if(btn_rest.getId() == view.getId()){
+
+        }
+        else{
+            for(int i=0; i < tableRows.length ; i++){
+                for (int j=0; j < 4; j++){
+                    if(view.getId() == cells[i][j].getId()){
+                        cells[i][j].setText("0");
+                        cells[i][j].setBackgroundResource(R.drawable.border);
+                        cells[i][j].setClickable(false);
+                    }
                 }
             }
         }
