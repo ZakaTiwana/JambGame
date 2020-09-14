@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -31,6 +30,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String[] rowNames={"1","2","3","4","5","6","Min","Max","S","F","P","Y"};
 
     private Jamb jamb;
+    private boolean isNeutralSelected = false;
+    private int neutralSelectedIndex = -1;
     private ImageView[] all_dices = new ImageView[6];
     private HashMap<Integer,Integer> previousSelectedDice = new HashMap<>();
 
@@ -109,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Log.d(TAG, "onClick: reset button clicked");
             resetCells();
         }
-        else {
+        else if(jamb.getRollCount() > 0) {
             for (int i = 0; i < all_dices.length; i++) {
                 if(view.getId() == all_dices[i].getId()){
                     all_dices[i].setColorFilter(Color.GREEN, PorterDuff.Mode.LIGHTEN);
@@ -117,16 +118,51 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     break;
                 }
             }
-            for(int i=0; i < tableRows.length ; i++){
-                for (int j=0; j < 4; j++){
+            for(int i=0; i < 4 ; i++){
+                for (int j=0; j < tableRows.length; j++){
                     if(view.getId() == cells[i][j].getId()){
-                        boolean move_possible = true; // should set later accordingly
+                        boolean move_possible = false; // should set later accordingly
+                        switch (columnsNames[i]){
+                            case "Bottom-Up":
+                                Column bu = jamb.getColumns().get(0);
+
+                                break;
+                            case "Top-Down":
+                                Column td = jamb.getColumns().get(1);
+                                break;
+                            case "Free":
+                                Column free = jamb.getColumns().get(2);
+                                if (neutralSelectedIndex > -1) break;
+                                cells[i][j].setText("0");
+                                cells[i][j].setBackgroundResource(R.drawable.border);
+                                cells[i][j].setClickable(false);
+                                move_possible = true;
+                                break;
+                            case "Nuetral":
+                                Column n = jamb.getColumns().get(3);
+                                if (isNeutralSelected && neutralSelectedIndex == j){
+                                    cells[i][j].setText("0");
+                                    cells[i][j].setBackgroundResource(R.drawable.border);
+                                    cells[i][j].setClickable(false);
+                                    move_possible = true;
+                                    break;
+                                }
+                                if (previousSelectedDice.isEmpty()){
+                                    if (neutralSelectedIndex > -1){
+                                        cells[i][neutralSelectedIndex].
+                                                setBackgroundResource(R.drawable.border_unselected);
+                                    }
+                                    cells[i][j].setBackgroundResource(R.drawable.border_n_selected);
+                                    isNeutralSelected = true;
+                                    neutralSelectedIndex = j;
+                                }
+                                break;
+                        }
                         if (move_possible){
-                            cells[i][j].setText("0");
-                            cells[i][j].setBackgroundResource(R.drawable.border);
-                            cells[i][j].setClickable(false);
-                            // end jamb roll should be set to zero
+                            jamb.resetDices();
                             btn_go.setClickable(true);
+                            neutralSelectedIndex = -1;
+                            isNeutralSelected = false;
                             for (int k = 0; k < all_dices.length; k++) {
                                 all_dices[k].setClickable(true);
                                 all_dices[k].setColorFilter(null);
@@ -141,15 +177,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void createCells(){
-        cells = new TextView[12][4];
+        cells = new TextView[4][12];
         int height = (int) TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP,30,
                 getResources().getDisplayMetrics()); //dp to pixels
 
         Log.d(TAG, "onCreate: height = "+height);
         int id=0;
-        for (int i=0;i < tableRows.length;i++){
-            for (int j=0;j<4;j++){
+        for (int i=0;i < 4;i++){
+            for (int j=0;j<tableRows.length;j++){
                 cells[i][j] = new TextView(this);
                 cells[i][j].setId(100+id);
                 id++;
@@ -160,7 +196,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 cells[i][j].setPadding(5, 5, 5, 5);
                 cells[i][j].setClickable(true);
                 cells[i][j].setOnClickListener(this);
-                tableRows[i].addView(cells[i][j]);
+                tableRows[j].addView(cells[i][j]);
             }
         }
     }
@@ -174,8 +210,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             all_dices[k].setColorFilter(null);
             all_dices[k].setImageResource(dice_to_drawable_ids[0]);
         }
-        for (int i=0;i < tableRows.length;i++){
-            for (int j=0;j<4;j++){
+        for (int i=0;i < 4;i++){
+            for (int j=0;j<tableRows.length;j++){
                 cells[i][j].setBackgroundResource(R.drawable.border_unselected);
                 cells[i][j].setClickable(true);
                 cells[i][j].setOnClickListener(this);

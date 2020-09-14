@@ -5,7 +5,7 @@ import java.util.Iterator;
 
 public class Dices {
     int[] dices;
-    HashMap<Integer,Integer> selected;
+    HashMap<Integer,Integer> selected = new HashMap<>();
 
     public Dices() {
         this.dices=new int[6];

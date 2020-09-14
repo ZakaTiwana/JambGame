@@ -8,8 +8,8 @@ import java.util.Iterator;
 public class Jamb {
 
     int rollCount;
-    ArrayList<Dices> dices;
-    ArrayList<Column> columns;
+    ArrayList<Dices> dices = new ArrayList<>();
+    ArrayList<Column> columns = new ArrayList<>();
     Boolean[] nuetralFilled;
     Boolean[] freeFilled;
 
@@ -196,7 +196,9 @@ public class Jamb {
     }
 
     public void resetDices(){
+        this.rollCount=0;
         this.dices=new ArrayList<Dices>();
+        this.dices.add(new Dices());
     }
 
 
