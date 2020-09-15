@@ -38,8 +38,8 @@ public class ViewScoreActivity extends AppCompatActivity {
     }
 
     private void populateArray(){
-        scores.add("300\t\t12-sep-2020");
-        scores.add("100");
-        scores.add("50");
+        for (int i = 0; i < 30; i++) {
+            scores.add(""+i);
+        }
     }
 }
