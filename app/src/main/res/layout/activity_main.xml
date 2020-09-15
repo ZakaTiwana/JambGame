@@ -8,13 +8,13 @@
 
 
     <LinearLayout
-        android:layout_width="388dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="2dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
         android:layout_marginBottom="2dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -28,17 +28,17 @@
         <TableLayout
             android:id="@+id/main_table"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <TableRow
                 android:id="@+id/header_row"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent">
 
                 <TextView
                     android:id="@+id/textView8"
-                    android:layout_width="40dp"
                     android:layout_height="30dp"
+                    android:layout_weight="0.1"
                     android:background="@drawable/border"
                     android:gravity="center_horizontal"
                     android:padding="3dp"
@@ -49,8 +49,9 @@
 
                 <TextView
                     android:id="@+id/textView7"
-                    android:layout_width="85dp"
+                    android:layout_width="50dp"
                     android:layout_height="30dp"
+                    android:layout_weight="1"
                     android:background="@drawable/border"
                     android:gravity="center_horizontal"
                     android:padding="3dp"
@@ -62,8 +63,9 @@
 
                 <TextView
                     android:id="@+id/textView6"
-                    android:layout_width="85dp"
+                    android:layout_width="50dp"
                     android:layout_height="30dp"
+                    android:layout_weight="1"
                     android:background="@drawable/border"
                     android:gravity="center_horizontal"
                     android:padding="3dp"
@@ -75,8 +77,9 @@
 
                 <TextView
                     android:id="@+id/textView5"
-                    android:layout_width="85dp"
+                    android:layout_width="50dp"
                     android:layout_height="30dp"
+                    android:layout_weight="1"
                     android:background="@drawable/border"
                     android:gravity="center_horizontal"
                     android:padding="3dp"
@@ -88,8 +91,9 @@
 
                 <TextView
                     android:id="@+id/textView"
-                    android:layout_width="92dp"
+                    android:layout_width="50dp"
                     android:layout_height="30dp"
+                    android:layout_weight="1"
                     android:background="@drawable/border"
                     android:gravity="center_horizontal"
                     android:padding="3dp"
@@ -103,13 +107,13 @@
 
             <TableRow
                 android:id="@+id/ones_row"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent">
 
                 <TextView
                     android:id="@+id/textView2"
-                    android:layout_width="30dp"
                     android:layout_height="30dp"
+                    android:layout_weight="0.1"
                     android:background="@drawable/border"
                     android:gravity="center_horizontal"
                     android:padding="5dp"
@@ -123,13 +127,13 @@
 
             <TableRow
                 android:id="@+id/twos_row"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent">
 
                 <TextView
                     android:id="@+id/textView3"
-                    android:layout_width="30dp"
                     android:layout_height="30dp"
+                    android:layout_weight="0.1"
                     android:background="@drawable/border"
                     android:gravity="center_horizontal"
                     android:padding="5dp"
@@ -143,13 +147,13 @@
 
             <TableRow
                 android:id="@+id/threes_row"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent">
 
                 <TextView
                     android:id="@+id/textView4"
-                    android:layout_width="30dp"
                     android:layout_height="30dp"
+                    android:layout_weight="0.1"
                     android:background="@drawable/border"
                     android:gravity="center_horizontal"
                     android:padding="5dp"
@@ -163,13 +167,13 @@
 
             <TableRow
                 android:id="@+id/fours_row"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent">
 
                 <TextView
                     android:id="@+id/textView9"
-                    android:layout_width="30dp"
                     android:layout_height="30dp"
+                    android:layout_weight="0.1"
                     android:background="@drawable/border"
                     android:gravity="center_horizontal"
                     android:padding="5dp"
@@ -181,13 +185,13 @@
 
             <TableRow
                 android:id="@+id/fives_row"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent">
 
                 <TextView
                     android:id="@+id/textView10"
-                    android:layout_width="30dp"
                     android:layout_height="30dp"
+                    android:layout_weight="0.1"
                     android:background="@drawable/border"
                     android:gravity="center_horizontal"
                     android:padding="5dp"
@@ -199,13 +203,13 @@
 
             <TableRow
                 android:id="@+id/sixes_row"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent">
 
                 <TextView
                     android:id="@+id/textView11"
-                    android:layout_width="30dp"
                     android:layout_height="30dp"
+                    android:layout_weight="0.1"
                     android:background="@drawable/border"
                     android:gravity="center_horizontal"
                     android:padding="5dp"
@@ -217,13 +221,13 @@
 
             <TableRow
                 android:id="@+id/max_row"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent">
 
                 <TextView
                     android:id="@+id/textView13"
-                    android:layout_width="30dp"
                     android:layout_height="30dp"
+                    android:layout_weight="0.1"
                     android:background="@drawable/border"
                     android:gravity="center_horizontal"
                     android:padding="5dp"
@@ -235,13 +239,13 @@
 
             <TableRow
                 android:id="@+id/min_row"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent">
 
                 <TextView
                     android:id="@+id/textView12"
-                    android:layout_width="30dp"
                     android:layout_height="30dp"
+                    android:layout_weight="0.1"
                     android:background="@drawable/border"
                     android:gravity="center_horizontal"
                     android:padding="5dp"
@@ -253,13 +257,13 @@
 
             <TableRow
                 android:id="@+id/s_row"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent">
 
                 <TextView
                     android:id="@+id/textView14"
-                    android:layout_width="30dp"
                     android:layout_height="30dp"
+                    android:layout_weight="0.1"
                     android:background="@drawable/border"
                     android:gravity="center_horizontal"
                     android:padding="5dp"
@@ -271,13 +275,13 @@
 
             <TableRow
                 android:id="@+id/f_row"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent">
 
                 <TextView
                     android:id="@+id/textView15"
-                    android:layout_width="30dp"
                     android:layout_height="30dp"
+                    android:layout_weight="0.1"
                     android:background="@drawable/border"
                     android:gravity="center_horizontal"
                     android:padding="5dp"
@@ -289,13 +293,13 @@
 
             <TableRow
                 android:id="@+id/p_row"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent">
 
                 <TextView
                     android:id="@+id/textView16"
-                    android:layout_width="30dp"
                     android:layout_height="30dp"
+                    android:layout_weight="0.1"
                     android:background="@drawable/border"
                     android:gravity="center_horizontal"
                     android:padding="5dp"
@@ -307,13 +311,13 @@
 
             <TableRow
                 android:id="@+id/y_row"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent">
 
                 <TextView
                     android:id="@+id/textView17"
-                    android:layout_width="30dp"
                     android:layout_height="30dp"
+                    android:layout_weight="0.1"
                     android:background="@drawable/border"
                     android:gravity="center_horizontal"
                     android:padding="5dp"
@@ -326,7 +330,7 @@
         </TableLayout>
 
         <Space
-            android:layout_width="388dp"
+            android:layout_width="78dp"
             android:layout_height="80dp" />
 
         <LinearLayout

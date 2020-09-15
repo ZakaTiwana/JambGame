@@ -195,6 +195,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 cells[i][j].setTextColor(Color.BLACK);
                 cells[i][j].setBackgroundResource(R.drawable.border_unselected);
                 cells[i][j].setPadding(5, 5, 5, 5);
+                TableRow.LayoutParams tlay =  new TableRow.LayoutParams();
+                tlay.weight=1;
+                cells[i][j].setLayoutParams(tlay);
                 cells[i][j].setClickable(true);
                 cells[i][j].setOnClickListener(this);
                 tableRows[j].addView(cells[i][j]);
