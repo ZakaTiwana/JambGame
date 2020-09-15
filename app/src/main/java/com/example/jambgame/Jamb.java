@@ -312,10 +312,6 @@ public class Jamb {
         this.dices.add(new Dices());
     }
 
-    public boolean saveToDB(){
-        return true;
-    }
-
     private int numCountInLastDiceRolling(int numItself){
         int lastIndex=this.dices.size()-1;
         int[] dicesNumbers=this.dices.get(lastIndex).dices;
