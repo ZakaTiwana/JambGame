@@ -2,6 +2,7 @@ package com.example.jambgame;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -23,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private TableRow[] tableRows = new TableRow[12];
     private TextView[][] cells;
-    private Button btn_go, btn_rest;
+    private Button btn_go, btn_rest, btn_view_scores;
     private TextView total_score;
 
     private int dice_to_drawable_ids[] = new int[7];
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         btn_go = findViewById(R.id.btn_go);
         btn_rest = findViewById(R.id.btn_reset);
+        btn_view_scores = findViewById(R.id.view_scores);
         total_score = findViewById(R.id.total_score);
         all_dices[0] = findViewById(R.id.dice1);
         all_dices[1] = findViewById(R.id.dice2);
@@ -62,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         btn_rest.setOnClickListener(this);
         btn_go.setOnClickListener(this);
+        btn_view_scores.setOnClickListener(this);
 
 
         dice_to_drawable_ids[0] = R.drawable.r_q;
@@ -92,10 +95,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         Log.d(TAG, "onClick: view id = "+view.getId());
-
-        if (btn_go.getId() == view.getId()){
+        if(btn_view_scores.getId() == view.getId()){
+            Intent i = new Intent(this,ViewScoreActivity.class);
+            startActivity(i);
+        }
+        else if (btn_go.getId() == view.getId()){
             if (jamb.tableFilled()){
-                Toast.makeText(this,"Game Completed",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,"Game is Completed. For new Game click 'Reset' ",Toast.LENGTH_SHORT).show();
                 return;
             }
             jamb.rollDices(previousSelectedDice);
@@ -168,7 +174,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 all_dices[k].setImageResource(dice_to_drawable_ids[0]);
                             }
                             total_score.setText(String.valueOf(jamb.totalScore()));
-
+                            if (jamb.tableFilled()) {
+                                Toast.makeText(this,
+                                        "Game is Completed. Score Added to database",
+                                        Toast.LENGTH_SHORT).show();
+                                addScoreToDatabase();
+                                return;
+                            }
                         }
                         break;
                     }
@@ -224,6 +236,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 cells[i][j].setText("");
             }
         }
+    }
+
+    public void addScoreToDatabase(){
+
     }
 
 }
