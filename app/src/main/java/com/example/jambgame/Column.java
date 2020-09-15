@@ -11,7 +11,8 @@ public class Column {
     public Column(String type) {
         this.type=type;
         intializeColumn();
-        index=0;
+        if(type.equals("Bottom-Up")) index = this.columns.size()-1;
+        else  index = 0;
     }
 
     private void intializeColumn(){

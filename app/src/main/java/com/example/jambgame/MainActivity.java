@@ -123,27 +123,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     if(view.getId() == cells[i][j].getId()){
                         boolean move_possible = false; // should set later accordingly
                         switch (columnsNames[i]){
-                            case "Bottom-Up":
-                                Column bu = jamb.getColumns().get(0);
-
-                                break;
-                            case "Top-Down":
-                                Column td = jamb.getColumns().get(1);
-                                break;
-                            case "Free":
-                                Column free = jamb.getColumns().get(2);
-                                if (neutralSelectedIndex > -1) break;
-                                cells[i][j].setText("0");
-                                cells[i][j].setBackgroundResource(R.drawable.border_selected);
-                                cells[i][j].setClickable(false);
-                                move_possible = true;
-                                break;
                             case "Nuetral":
-                                Column n = jamb.getColumns().get(3);
                                 if (isNeutralSelected && neutralSelectedIndex == j){
-                                    cells[i][j].setText("0");
-                                    cells[i][j].setBackgroundResource(R.drawable.border_selected);
-                                    cells[i][j].setClickable(false);
                                     move_possible = true;
                                     break;
                                 }
@@ -157,9 +138,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     neutralSelectedIndex = j;
                                 }
                                 break;
+                            default:
+                                move_possible =  neutralSelectedIndex == -1 &&
+                                        jamb.setValue(rowNames[j],columnsNames[i],i,j);
+                                Log.d(TAG, "onClick: row = "+rowNames[j]
+                                        +", column = "+columnsNames[i]+", move_possible = "+move_possible+
+                                        ", calculated score = "+ jamb.getCalculatedValue(i,rowNames[j]));
+                                break;
                         }
                         if (move_possible){
+                            cells[i][j].setText(String.valueOf(jamb.getCalculatedValue(i,rowNames[j])));
+                            cells[i][j].setBackgroundResource(R.drawable.border_selected);
+                            cells[i][j].setClickable(false);
+
                             jamb.resetDices();
+                            previousSelectedDice.clear();
                             btn_go.setClickable(true);
                             neutralSelectedIndex = -1;
                             isNeutralSelected = false;
@@ -168,6 +161,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 all_dices[k].setColorFilter(null);
                                 all_dices[k].setImageResource(dice_to_drawable_ids[0]);
                             }
+                            total_score.setText(String.valueOf(jamb.totalScore()));
                         }
                         break;
                     }
@@ -203,6 +197,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void resetCells(){
         jamb = new Jamb();
         previousSelectedDice = new HashMap<>();
+        neutralSelectedIndex = -1;
+        isNeutralSelected = false;
 
         btn_go.setClickable(true);
         for (int k = 0; k < all_dices.length; k++) {

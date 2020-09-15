@@ -72,46 +72,84 @@ public class Jamb {
         this.freeFilled[index]=true;
     }
 
-    public boolean setValue(String rowName, String columnName, int index){
-        for (Column column : this.columns) {
-            if(column.getType().equals("Bottom-Up")){
-                if(column.index-1==index){
+    public boolean setValue(String rowName, String columnName,int col_index, int row_index){
+        boolean is_move_possible = false;
+        Column column = this.columns.get(col_index);
+        switch(columnName) {
+            case "Bottom-Up":
+                if(column.index==row_index){
                     int cellScore=calculateCellValue(column,rowName);
                     column.columns.put(rowName,cellScore);
-                    return true;
-                }else{
-                    return false;
+                    column.index--;
+                    is_move_possible = true;
                 }
-            }else if(column.getType().equals("Top-Down")){
-                if(column.index+1==index){
+                break;
+            case "Top-Down":
+                if(column.index==row_index){
                     int cellScore=calculateCellValue(column,rowName);
                     column.columns.put(rowName,cellScore);
-                    return true;
-                }else{
-                    return false;
+                    column.index++;
+                   is_move_possible = true;
                 }
-            }else if(column.getType().equals("Nuetral")){
-                if(nuetralFilled[index]==true){
-                    return false;
-                }else{
+                break;
+            case "Nuetral":
+                if(!nuetralFilled[row_index]){
                     int cellScore=calculateCellValue(column,rowName);
                     column.columns.put(rowName,cellScore);
-                    return true;
+                    is_move_possible = true;
                 }
-            }else if(column.getType().equals("Free")){
-                if(freeFilled[index]==true){
-                    return false;
-                }else{
-                    int cellScore=calculateCellValue(column,rowName);
-                    column.columns.put(rowName,cellScore);
-                    return true;
+                break;
+            case "Free":
+                if(!freeFilled[row_index]) {
+                    int cellScore = calculateCellValue(column, rowName);
+                    column.columns.put(rowName, cellScore);
+                    is_move_possible = true;
                 }
-            }
+                break;
         }
-        return true;
+        return is_move_possible;
+
+//        for (Column column : this.columns) {
+//            if(column.getType().equals("Bottom-Up")){
+//                if(column.index-1==index){
+//                    int cellScore=calculateCellValue(column,rowName);
+//                    column.columns.put(rowName,cellScore);
+//                    return true;
+//                }else{
+//                    return false;
+//                }
+//            }else if(column.getType().equals("Top-Down")){
+//                if(column.index+1==index){
+//                    int cellScore=calculateCellValue(column,rowName);
+//                    column.columns.put(rowName,cellScore);
+//                    return true;
+//                }else{
+//                    return false;
+//                }
+//            }else if(column.getType().equals("Nuetral")){
+//                if(nuetralFilled[index]==true){
+//                    return false;
+//                }else{
+//                    int cellScore=calculateCellValue(column,rowName);
+//                    column.columns.put(rowName,cellScore);
+//                    return true;
+//                }
+//            }else if(column.getType().equals("Free")){
+//                if(freeFilled[index]==true){
+//                    return false;
+//                }else{
+//                    int cellScore=calculateCellValue(column,rowName);
+//                    column.columns.put(rowName,cellScore);
+//                    return true;
+//                }
+//            }
+//        }
+//        return true;
     }
 
-
+    public int getCalculatedValue(int col_index, String row_name){
+        return calculateCellValue(this.columns.get(col_index),row_name);
+    }
     private int calculateCellValue(Column column, String rowName){
         int value=0;
         int cellScore=0;
