@@ -180,9 +180,9 @@ public class Jamb {
                 cellScore=sixsCount*6;
                 return cellScore;
             case "Min":
-                return maxValue();
-            case "Max":
                 return minValue();
+            case "Max":
+                return maxValue();
             case "S":
                 if(straightValue()==0){
                     return 0;
