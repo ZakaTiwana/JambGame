@@ -24,10 +24,6 @@ public class Jamb {
         freeFilled= new Boolean[]{false, false, false, false, false, false, false, false, false, false, false, false};
     }
 
-
-
-
-
     public ArrayList<Column> getColumns(){
         return this.getColumns();
     }
@@ -69,19 +65,6 @@ public class Jamb {
         this.dices.get(lastIndex).addSelected(key,value);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     public void setNuetral(int index){
         this.nuetralFilled[index]=true;
     }
@@ -89,19 +72,90 @@ public class Jamb {
         this.freeFilled[index]=true;
     }
 
-
-
-
-
-
-
-
-
-
-
-    public boolean setValue(){
-        //Set Values Main Logic
+    public boolean setValue(String rowName, String columnName, int index){
+        for (Column column : this.columns) {
+            if(column.getType().equals("Bottom-Up")){
+                if(column.index-1==index){
+                    int cellScore=calculateCellValue(column,rowName);
+                    column.columns.put(rowName,cellScore);
+                    return true;
+                }else{
+                    return false;
+                }
+            }else if(column.getType().equals("Top-Down")){
+                if(column.index+1==index){
+                    int cellScore=calculateCellValue(column,rowName);
+                    column.columns.put(rowName,cellScore);
+                    return true;
+                }else{
+                    return false;
+                }
+            }else if(column.getType().equals("Nuetral")){
+                if(nuetralFilled[index]==true){
+                    return false;
+                }else{
+                    int cellScore=calculateCellValue(column,rowName);
+                    column.columns.put(rowName,cellScore);
+                    return true;
+                }
+            }else if(column.getType().equals("Free")){
+                if(freeFilled[index]==true){
+                    return false;
+                }else{
+                    int cellScore=calculateCellValue(column,rowName);
+                    column.columns.put(rowName,cellScore);
+                    return true;
+                }
+            }
+        }
         return true;
+    }
+
+
+    private int calculateCellValue(Column column, String rowName){
+        int value=0;
+        int cellScore=0;
+        switch (rowName){
+            case "1":
+                int onesCount=numCountInLastDiceRolling(1);
+                cellScore=onesCount*1;
+                return cellScore;
+            case "2":
+                int twosCount=numCountInLastDiceRolling(2);
+                cellScore=twosCount*2;
+                return cellScore;
+            case "3":
+                int threesCount=numCountInLastDiceRolling(3);
+                cellScore=threesCount*3;
+                return cellScore;
+            case "4":
+                int foursCount=numCountInLastDiceRolling(4);
+                cellScore=foursCount*4;
+                return cellScore;
+            case "5":
+                int fivesCount=numCountInLastDiceRolling(5);
+                cellScore=fivesCount*5;
+                return cellScore;
+            case "6":
+                int sixsCount=numCountInLastDiceRolling(6);
+                cellScore=sixsCount*6;
+                return cellScore;
+            case "Min":
+                return maxValue();
+            case "Max":
+                return minValue();
+            case "S":
+                return straightValue()+20;
+            case "F":
+                return fullValue()+30;
+            case "P":
+                return pokerValue()+40;
+            case "Y":
+                return yambValue()+50;
+            default:
+                break;
+        }
+        return value;
     }
 
     public boolean tableFilled(){
@@ -199,9 +253,166 @@ public class Jamb {
         this.dices=new ArrayList<Dices>();
     }
 
-
-
     public boolean saveToDB(){
         return true;
+    }
+
+
+    private int numCountInLastDiceRolling(int numItself){
+        int lastIndex=this.dices.size()-1;
+        int[] dicesNumbers=this.dices.get(lastIndex).dices;
+        int count=0;
+        for(int value:dicesNumbers){
+            if(numItself==value){
+                count++;
+            }
+        }
+        return count;
+    }
+
+    private int straightValue(){
+        int value=0;
+        int lastIndex=this.dices.size()-1;
+        int[] dices=this.dices.get(lastIndex).dices;
+        //(1,2,3,4,5),6
+        boolean con1=dices[0]==1 && dices[1]==2 && dices[2]==3 && dices[3]==4 && dices[4]==5;
+        //(2,3,4,5,6),1
+        boolean con2=dices[0]==2 && dices[1]==3 && dices[2]==4 && dices[3]==5 && dices[4]==6;
+        //6,(1,2,3,4,5)
+        boolean con3=dices[1]==1 && dices[2]==2 && dices[3]==3 && dices[4]==4 && dices[5]==5;
+        //1,(2,3,4,5,6)
+        boolean con4=dices[1]==2 && dices[2]==3 && dices[3]==4 && dices[4]==5 && dices[5]==6;
+        if(con1 || con2 || con3 || con4){
+            if(this.rollCount==1){
+                value=66;
+            }else if(this.rollCount==2){
+                value=56;
+            }else if(this.rollCount==3){
+                value=46;
+            }
+        }
+        return value;
+    }
+
+    private int fullValue(){
+        int value=0;
+        int lastIndex=this.dices.size()-1;
+        int[] dices=this.dices.get(lastIndex).dices;
+        HashMap<Integer, Integer> repitionMap=new HashMap<Integer, Integer>();
+        //Create a Map where key represents number and value represents repition
+        //Note put function replace new value when place on same key
+        for(int diceValue:dices){
+            repitionMap.put(diceValue,0);
+        }
+        //Increasing Counts
+        for(int diceValue:dices){
+            int preValue=repitionMap.get(diceValue)+1;
+            repitionMap.put(diceValue,preValue);
+        }
+        //Checking 3 and 2
+        boolean twoCountExist=false;
+        boolean threeCountExist=false;
+        int twoCountScore=0;
+        int threeCountScore=0;
+        Iterator it = repitionMap.entrySet().iterator();
+        while (it.hasNext()) {
+            HashMap.Entry pair = (HashMap.Entry)it.next();
+            int diceNumber=(int)(pair.getKey());
+            int repCount=(int)(pair.getValue());
+            if(repCount==2){
+                twoCountExist=true;
+                twoCountScore=diceNumber*repCount;
+            }else if(repCount==3){
+                threeCountExist=true;
+                threeCountScore=diceNumber*repCount;
+            }
+        }
+        if(twoCountExist && threeCountExist){
+            value=twoCountScore+threeCountScore;
+            return value;
+        }else{
+            return value;
+        }
+    }
+
+    private int pokerValue(){
+        int value=0;
+        int lastIndex=this.dices.size()-1;
+        int[] dices=this.dices.get(lastIndex).dices;
+        HashMap<Integer, Integer> repitionMap=new HashMap<Integer, Integer>();
+        //Create a Map where key represents number and value represents repition
+        //Note put function replace new value when place on same key
+        for(int diceValue:dices){
+            repitionMap.put(diceValue,0);
+        }
+        //Increasing Counts
+        for(int diceValue:dices){
+            int preValue=repitionMap.get(diceValue)+1;
+            repitionMap.put(diceValue,preValue);
+        }
+        //Checking 3 and 2
+        boolean fourOrMoreCountExist=false;
+        int countScore=0;
+        Iterator it = repitionMap.entrySet().iterator();
+        while (it.hasNext()) {
+            HashMap.Entry pair = (HashMap.Entry)it.next();
+            int diceNumber=(int)(pair.getKey());
+            int repCount=(int)(pair.getValue());
+            if(repCount>=4){
+                fourOrMoreCountExist=true;
+                countScore=repCount*diceNumber;
+            }
+        }
+        if(fourOrMoreCountExist){
+            value=countScore;
+            return value;
+        }else{
+            return value;
+        }
+    }
+
+    private int yambValue(){
+        int value=0;
+        int lastIndex=this.dices.size()-1;
+        int[] dices=this.dices.get(lastIndex).dices;
+        HashMap<Integer, Integer> repitionMap=new HashMap<Integer, Integer>();
+        //Create a Map where key represents number and value represents repition
+        //Note put function replace new value when place on same key
+        for(int diceValue:dices){
+            repitionMap.put(diceValue,0);
+        }
+        //Increasing Counts
+        for(int diceValue:dices){
+            int preValue=repitionMap.get(diceValue)+1;
+            repitionMap.put(diceValue,preValue);
+        }
+        //Checking 3 and 2
+        boolean fiveCountExist=false;
+        int countScore=0;
+        Iterator it = repitionMap.entrySet().iterator();
+        while (it.hasNext()) {
+            HashMap.Entry pair = (HashMap.Entry)it.next();
+            int diceNumber=(int)(pair.getKey());
+            int repCount=(int)(pair.getValue());
+            if(repCount==5){
+                fiveCountExist=true;
+                countScore=repCount*diceNumber;
+            }
+        }
+        if(fiveCountExist){
+            value=countScore;
+            return value;
+        }else{
+            return value;
+        }
+    }
+
+    private int minValue(){
+        int value=0;
+        return value;
+    }
+    private int maxValue(){
+        int value=0;
+        return value;
     }
 }
