@@ -2,6 +2,7 @@ package com.example.jambgame;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -183,13 +184,29 @@ public class Jamb {
             case "Max":
                 return minValue();
             case "S":
-                return straightValue()+20;
+                if(straightValue()==0){
+                    return 0;
+                }else{
+                    return straightValue()+20;
+                }
             case "F":
-                return fullValue()+30;
+                if(fullValue()==0){
+                    return 0;
+                }else{
+                    return fullValue()+30;
+                }
             case "P":
-                return pokerValue()+40;
+                if(pokerValue()==0){
+                    return 0;
+                }else{
+                    return pokerValue()+40;
+                }
             case "Y":
-                return yambValue()+50;
+                if(yambValue()==0){
+                    return 0;
+                }else{
+                    return yambValue()+50;
+                }
             default:
                 break;
         }
@@ -296,7 +313,6 @@ public class Jamb {
     public boolean saveToDB(){
         return true;
     }
-
 
     private int numCountInLastDiceRolling(int numItself){
         int lastIndex=this.dices.size()-1;
@@ -449,10 +465,31 @@ public class Jamb {
 
     private int minValue(){
         int value=0;
+        ArrayList<Integer> dicesValues=new ArrayList<Integer>();
+        for(Dices dice:this.dices){
+            for(int diceValue:dice.getDices()){
+                dicesValues.add(diceValue);
+            }
+        }
+        Collections.sort(dicesValues);
+        value=dicesValues.get(0)+dicesValues.get(1)+dicesValues.get(2)+dicesValues.get(3)+dicesValues.get(4);
         return value;
     }
     private int maxValue(){
         int value=0;
+        ArrayList<Integer> dicesValues=new ArrayList<Integer>();
+        for(Dices dice:this.dices){
+            for(int diceValue:dice.getDices()){
+                dicesValues.add(diceValue);
+            }
+        }
+        Collections.sort(dicesValues);
+        int lastIndex=dicesValues.size()-1;
+        for(int index=0;index<dicesValues.size();index++){
+            if(index>(lastIndex-5)){
+                value=value+dicesValues.get(index);
+            }
+        }
         return value;
     }
 }
