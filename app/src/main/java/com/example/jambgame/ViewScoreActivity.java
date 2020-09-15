@@ -15,11 +15,15 @@ public class ViewScoreActivity extends AppCompatActivity {
 
     private ListView listView;
     private Button btn_back;
-    private ArrayList<String> scores = new ArrayList<>();
+    private ArrayList<Integer> scores = new ArrayList<>();
+    private DBConnection db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_score);
+
+        db = new DBConnection(getApplicationContext());
+
         btn_back = findViewById(R.id.btn_back);
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -28,18 +32,13 @@ public class ViewScoreActivity extends AppCompatActivity {
             }
         });
 
-        populateArray();
+        scores = db.getScores();
 
         listView = findViewById(R.id.score_list_view);
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+        ArrayAdapter<Integer> arrayAdapter = new ArrayAdapter<Integer>(
                 this,R.layout.support_simple_spinner_dropdown_item,
                     scores);
         listView.setAdapter(arrayAdapter);
     }
 
-    private void populateArray(){
-        for (int i = 0; i < 30; i++) {
-            scores.add(""+i);
-        }
-    }
 }

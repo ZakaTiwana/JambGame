@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private int neutralSelectedIndex = -1;
     private ImageView[] all_dices = new ImageView[6];
     private HashMap<Integer,Integer> previousSelectedDice = new HashMap<>();
+    private DBConnection db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         jamb = new Jamb();
+        db = new DBConnection(getApplicationContext());
 
         btn_go = findViewById(R.id.btn_go);
         btn_rest = findViewById(R.id.btn_reset);
@@ -178,7 +180,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 Toast.makeText(this,
                                         "Game is Completed. Score Added to database",
                                         Toast.LENGTH_SHORT).show();
-                                addScoreToDatabase();
+                                db.addScore(jamb.totalScore());
                                 return;
                             }
                         }
@@ -236,10 +238,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 cells[i][j].setText("");
             }
         }
-    }
-
-    public void addScoreToDatabase(){
-
     }
 
 }
