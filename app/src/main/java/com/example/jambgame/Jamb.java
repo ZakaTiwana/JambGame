@@ -97,6 +97,7 @@ public class Jamb {
                 if(!nuetralFilled[row_index]){
                     int cellScore=calculateCellValue(column,rowName);
                     column.columns.put(rowName,cellScore);
+                    nuetralFilled[row_index] = Boolean.TRUE;
                     is_move_possible = true;
                 }
                 break;
@@ -104,6 +105,7 @@ public class Jamb {
                 if(!freeFilled[row_index]) {
                     int cellScore = calculateCellValue(column, rowName);
                     column.columns.put(rowName, cellScore);
+                    freeFilled[row_index] = Boolean.TRUE;
                     is_move_possible = true;
                 }
                 break;
@@ -214,17 +216,17 @@ public class Jamb {
     }
 
     public boolean tableFilled(){
-        boolean NUETRAL=Arrays.asList(this.nuetralFilled).contains(true);
-        boolean FREE=Arrays.asList(this.nuetralFilled).contains(true);
+        boolean NUETRAL= !Arrays.asList(this.nuetralFilled).contains(false);
+        boolean FREE= !Arrays.asList(this.nuetralFilled).contains(false);
         boolean TD=false;
         boolean BU=false;
         for (Column column : this.columns) {
             if(column.getType().equals("Bottom-Up")){
-                if(column.index==12){
+                if(column.index <= 0){
                     BU=true;
                 }
             }else if(column.getType().equals("Top-Down")){
-                if(column.index==12){
+                if(column.index >= 11){
                     TD=true;
                 }
             }

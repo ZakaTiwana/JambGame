@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.HashMap;
 
@@ -93,6 +94,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.d(TAG, "onClick: view id = "+view.getId());
 
         if (btn_go.getId() == view.getId()){
+            if (jamb.tableFilled()){
+                Toast.makeText(this,"Game Completed",Toast.LENGTH_SHORT).show();
+                return;
+            }
             jamb.rollDices(previousSelectedDice);
             int[] dices = jamb.getLatestRolledDice().dices;
             for (int i = 0; i < dices.length; i++) {
@@ -104,6 +109,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     all_dices[i].setClickable(false);
                 }
             }
+
 
         }
         else if(btn_rest.getId() == view.getId()){
@@ -125,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         switch (columnsNames[i]){
                             case "Nuetral":
                                 if (isNeutralSelected && neutralSelectedIndex == j){
-                                    move_possible = true;
+                                    move_possible = jamb.setValue(rowNames[j],columnsNames[i],i,j);
                                     break;
                                 }
                                 if (previousSelectedDice.isEmpty()){
@@ -162,6 +168,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 all_dices[k].setImageResource(dice_to_drawable_ids[0]);
                             }
                             total_score.setText(String.valueOf(jamb.totalScore()));
+
                         }
                         break;
                     }
