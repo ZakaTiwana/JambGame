@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 Column free = jamb.getColumns().get(2);
                                 if (neutralSelectedIndex > -1) break;
                                 cells[i][j].setText("0");
-                                cells[i][j].setBackgroundResource(R.drawable.border);
+                                cells[i][j].setBackgroundResource(R.drawable.border_selected);
                                 cells[i][j].setClickable(false);
                                 move_possible = true;
                                 break;
@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 Column n = jamb.getColumns().get(3);
                                 if (isNeutralSelected && neutralSelectedIndex == j){
                                     cells[i][j].setText("0");
-                                    cells[i][j].setBackgroundResource(R.drawable.border);
+                                    cells[i][j].setBackgroundResource(R.drawable.border_selected);
                                     cells[i][j].setClickable(false);
                                     move_possible = true;
                                     break;
