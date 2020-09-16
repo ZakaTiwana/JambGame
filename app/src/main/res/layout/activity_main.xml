@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -248,7 +253,7 @@
                     android:background="@drawable/border"
                     android:gravity="center_horizontal"
                     android:padding="5dp"
-                    android:text="Min"
+                    android:text="Max"
                     android:textAlignment="center"
                     android:textColor="#ffffff"
                     android:textSize="12dp" />
@@ -266,7 +271,7 @@
                     android:background="@drawable/border"
                     android:gravity="center_horizontal"
                     android:padding="5dp"
-                    android:text="Max"
+                    android:text="Min"
                     android:textAlignment="center"
                     android:textColor="#ffffff"
                     android:textSize="12dp" />
@@ -380,10 +385,6 @@
             </TableRow>
 
         </TableLayout>
-
-        <Space
-            android:layout_width="78dp"
-            android:layout_height="26dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -509,7 +510,7 @@
                 android:layout_height="wrap_content"
                 android:text="View Scores" />
         </LinearLayout>
-
-
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>

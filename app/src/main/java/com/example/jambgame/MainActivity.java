@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private int[] dice_to_drawable_ids = new int[7];
     private String[] columnsNames={"Bottom-Up","Top-Down","Free","Nuetral"};
-    private String[] rowNames={"1","2","3","4","5","6","Min","Max","S","F","P","Y"};
+    String[] rowNames={"1","2","3","4","5","6","Max","Min","S","F","P","Y"};
 
     private Jamb jamb;
     private boolean isNeutralSelected = false;

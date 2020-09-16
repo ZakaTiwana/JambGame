@@ -16,7 +16,7 @@ public class Column {
     }
 
     private void intializeColumn(){
-        String[] rowNames={"1","2","3","4","5","6","Min","Max","S","F","P","Y"};
+        String[] rowNames={"1","2","3","4","5","6","Max","Min","S","F","P","Y"};
         for (String i : rowNames) {
             this.columns.put(i,0);
         }
