@@ -153,7 +153,7 @@ public class Jamb {
                 if(straightValue()==0){
                     return 0;
                 }else{
-                    return straightValue()+20;
+                    return straightValue();
                 }
             case "F":
                 if(fullValue()==0){
