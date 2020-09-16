@@ -13,6 +13,7 @@ public class Jamb {
     ArrayList<Column> columns = new ArrayList<>();
     Boolean[] nuetralFilled;
     Boolean[] freeFilled;
+    ArrayList<int[]> sumRows=new ArrayList<int[]>();
 
     public Jamb() {
         this.rollCount=0;
@@ -111,43 +112,6 @@ public class Jamb {
                 break;
         }
         return is_move_possible;
-
-//        for (Column column : this.columns) {
-//            if(column.getType().equals("Bottom-Up")){
-//                if(column.index-1==index){
-//                    int cellScore=calculateCellValue(column,rowName);
-//                    column.columns.put(rowName,cellScore);
-//                    return true;
-//                }else{
-//                    return false;
-//                }
-//            }else if(column.getType().equals("Top-Down")){
-//                if(column.index+1==index){
-//                    int cellScore=calculateCellValue(column,rowName);
-//                    column.columns.put(rowName,cellScore);
-//                    return true;
-//                }else{
-//                    return false;
-//                }
-//            }else if(column.getType().equals("Nuetral")){
-//                if(nuetralFilled[index]==true){
-//                    return false;
-//                }else{
-//                    int cellScore=calculateCellValue(column,rowName);
-//                    column.columns.put(rowName,cellScore);
-//                    return true;
-//                }
-//            }else if(column.getType().equals("Free")){
-//                if(freeFilled[index]==true){
-//                    return false;
-//                }else{
-//                    int cellScore=calculateCellValue(column,rowName);
-//                    column.columns.put(rowName,cellScore);
-//                    return true;
-//                }
-//            }
-//        }
-//        return true;
     }
 
     public int getCalculatedValue(int col_index, String row_name){
@@ -303,6 +267,9 @@ public class Jamb {
         for(int i=0;i<4;i++){
             total+=(numberSum[i]+sumMinMax[i]+sumSpecials[i]);
         }
+        sumRows.add(numberSum);
+        sumRows.add(sumMinMax);
+        sumRows.add(sumSpecials);
         return total;
     }
 
@@ -404,7 +371,7 @@ public class Jamb {
             int preValue=repitionMap.get(diceValue)+1;
             repitionMap.put(diceValue,preValue);
         }
-        //Checking 3 and 2
+        //Checking 4 or more exists
         boolean fourOrMoreCountExist=false;
         int countScore=0;
         Iterator it = repitionMap.entrySet().iterator();
@@ -440,7 +407,7 @@ public class Jamb {
             int preValue=repitionMap.get(diceValue)+1;
             repitionMap.put(diceValue,preValue);
         }
-        //Checking 3 and 2
+        //Checking 5 exists
         boolean fiveCountExist=false;
         int countScore=0;
         Iterator it = repitionMap.entrySet().iterator();
@@ -489,5 +456,9 @@ public class Jamb {
             }
         }
         return value;
+    }
+
+    public ArrayList<int[]> getRowsSum(){
+        return this.sumRows;
     }
 }
