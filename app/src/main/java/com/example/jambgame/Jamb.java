@@ -267,9 +267,10 @@ public class Jamb {
         for(int i=0;i<4;i++){
             total+=(numberSum[i]+sumMinMax[i]+sumSpecials[i]);
         }
-        sumRows.add(numberSum);
-        sumRows.add(sumMinMax);
-        sumRows.add(sumSpecials);
+        this.sumRows=new ArrayList<int[]>();
+        this.sumRows.add(numberSum);
+        this.sumRows.add(sumMinMax);
+        this.sumRows.add(sumSpecials);
         return total;
     }
 
