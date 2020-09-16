@@ -16,6 +16,8 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -182,6 +184,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 all_dices[k].setImageResource(dice_to_drawable_ids[0]);
                             }
                             total_score.setText(String.valueOf(jamb.totalScore()));
+                            ArrayList<int[]> rows_sum = jamb.getRowsSum();
+                            for (int k = 0; k < rows_sum.size(); k++) {
+                                for (int l = 0; l < rows_sum.get(0).length; l++) {
+                                    all_sum_cells[k][l].setText(String.valueOf(rows_sum.get(k)[l]));
+                                }
+                            }
                             if (jamb.tableFilled()) {
                                 Toast.makeText(this,
                                         "Game is Completed. Score Added to database",
@@ -239,6 +247,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 tlay.weight=1;
                 all_sum_cells[i][j].setLayoutParams(tlay);
                 all_sum_cells[i][j].setClickable(false);
+                all_sum_cells[i][j].setText("0");
                 sumRows[i].addView(all_sum_cells[i][j]);
             }
         }
@@ -266,7 +275,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // reset sum cells
         for (int i = 0; i < sumRows.length; i++) {
             for (int j = 0; j < 4; j++) {
-                all_sum_cells[i][j].setText("");
+                all_sum_cells[i][j].setText("0");
             }
         }
     }
