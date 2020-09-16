@@ -296,15 +296,36 @@ public class Jamb {
         int value=0;
         int lastIndex=this.dices.size()-1;
         int[] dices=this.dices.get(lastIndex).dices;
-        //(1,2,3,4,5),6
-        boolean con1=dices[0]==1 && dices[1]==2 && dices[2]==3 && dices[3]==4 && dices[4]==5;
-        //(2,3,4,5,6),1
-        boolean con2=dices[0]==2 && dices[1]==3 && dices[2]==4 && dices[3]==5 && dices[4]==6;
-        //6,(1,2,3,4,5)
-        boolean con3=dices[1]==1 && dices[2]==2 && dices[3]==3 && dices[4]==4 && dices[5]==5;
-        //1,(2,3,4,5,6)
-        boolean con4=dices[1]==2 && dices[2]==3 && dices[3]==4 && dices[4]==5 && dices[5]==6;
-        if(con1 || con2 || con3 || con4){
+        boolean[] checks={false,false,false,false,false,false};
+
+        for(int i=0;i<dices.length;i++){
+            switch (dices[i]){
+                case 1:
+                    checks[0]=true;
+                    break;
+                case 2:
+                    checks[1]=true;
+                    break;
+                case 3:
+                    checks[2]=true;
+                    break;
+                case 4:
+                    checks[3]=true;
+                    break;
+                case 5:
+                    checks[4]=true;
+                    break;
+                case 6:
+                    checks[5]=true;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        boolean con1=checks[0] &&checks[1] &&checks[2] &&checks[3] &&checks[4];
+        boolean con2=checks[1] &&checks[2] &&checks[3] &&checks[4] &&checks[5];
+        if(con1 || con2){
             if(this.rollCount==1){
                 value=66;
             }else if(this.rollCount==2){
