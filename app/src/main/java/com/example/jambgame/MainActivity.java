@@ -24,10 +24,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private TableRow[] tableRows = new TableRow[12];
     private TextView[][] cells;
+    private TableRow[] sumRows = new TableRow[3];
+    private TextView[][] all_sum_cells;
     private Button btn_go, btn_rest, btn_view_scores;
     private TextView total_score;
 
-    private int dice_to_drawable_ids[] = new int[7];
+    private int[] dice_to_drawable_ids = new int[7];
     private String[] columnsNames={"Bottom-Up","Top-Down","Free","Nuetral"};
     private String[] rowNames={"1","2","3","4","5","6","Min","Max","S","F","P","Y"};
 
@@ -89,6 +91,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tableRows[9] = findViewById(R.id.f_row);
         tableRows[10] = findViewById(R.id.p_row);
         tableRows[11] = findViewById(R.id.y_row);
+
+        sumRows[0] = findViewById(R.id.first_sum_row);
+        sumRows[1] = findViewById(R.id.second_sum_row);
+        sumRows[2] = findViewById(R.id.third_sum_row);
 
         createCells();
 
@@ -193,6 +199,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void createCells(){
         cells = new TextView[4][12];
+        all_sum_cells = new TextView[3][4];
         int height = (int) TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP,30,
                 getResources().getDisplayMetrics()); //dp to pixels
@@ -217,6 +224,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 tableRows[j].addView(cells[i][j]);
             }
         }
+        // Create Sum Rows
+        for (int i = 0; i < sumRows.length; i++) {
+            for (int j = 0; j < 4; j++) {
+                all_sum_cells[i][j] = new TextView(this);
+                all_sum_cells[i][j].setId(200+id);
+                id++;
+                all_sum_cells[i][j].setHeight(height);
+                all_sum_cells[i][j].setGravity(Gravity.CENTER_HORIZONTAL);
+                all_sum_cells[i][j].setTextColor(Color.BLACK);
+                all_sum_cells[i][j].setBackgroundResource(R.drawable.border_sum);
+                all_sum_cells[i][j].setPadding(5, 5, 5, 5);
+                TableRow.LayoutParams tlay =  new TableRow.LayoutParams();
+                tlay.weight=1;
+                all_sum_cells[i][j].setLayoutParams(tlay);
+                all_sum_cells[i][j].setClickable(false);
+                sumRows[i].addView(all_sum_cells[i][j]);
+            }
+        }
     }
     private void resetCells(){
         jamb = new Jamb();
@@ -236,6 +261,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 cells[i][j].setClickable(true);
                 cells[i][j].setOnClickListener(this);
                 cells[i][j].setText("");
+            }
+        }
+        // reset sum cells
+        for (int i = 0; i < sumRows.length; i++) {
+            for (int j = 0; j < 4; j++) {
+                all_sum_cells[i][j].setText("");
             }
         }
     }
